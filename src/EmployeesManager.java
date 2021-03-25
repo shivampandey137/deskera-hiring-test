@@ -15,7 +15,15 @@ public class EmployeesManager {
    */
   String addEmployee(Employee employee) {
     // TODO - implement this
-    return null;
+    getDBConnection();
+stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+ResultSet.CONCUR_READ_ONLY);
+sqlString =
+"INSERT INTO Employee VALUES (Employee_SEQ.nextval, '" +
+first_name + "','" +
+last_name + "','")";
+stmt.execute(sqlString);
+return "success";
   }
 
   /**
@@ -26,6 +34,20 @@ public class EmployeesManager {
    */
   Employee findEmployee(String employeeId) {
     // TODO - implement this
+    try
+(PreparedStatement preparedStatement =
+connection.prepareStatement("SELECT First_Name, Last_Name FROM EMPLOYEE WHERE employeeId = ?")) {
+if(resultSet.next()) {
+returnValue.add(new Employee(resultSet));
+} else {
+throw new SQLException("No recrods found");
+}
+catch (SQLException ex) {
+logger.log(Level.SEVERE, null, ex);
+throw ex;
+}
+}
+return Employee;
     return null;
   }
 
